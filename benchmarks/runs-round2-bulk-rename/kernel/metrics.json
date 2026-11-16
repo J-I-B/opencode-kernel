@@ -1,0 +1,21 @@
+{
+  "task": "bulk-rename",
+  "arm": "kernel",
+  "model": "deepseek/deepseek-flash",
+  "wall_seconds": 30.7,
+  "attempts": 1,
+  "steps": 11,
+  "cost_usd": 0.003504,
+  "tokens": {
+    "input": 6469,
+    "output": 2504,
+    "reasoning": 1026,
+    "cache_read": 138496,
+    "cache_write": 0
+  },
+  "run_exit": 0,
+  "verify_exit": 1,
+  "verify_pass": false,
+  "verify_output": "FAIL bulk-rename\n  - no calc_total remains in repo/ (61 files scanned)\n  - compute_total occurrences: 121 (expected 120)\n  - files containing compute_total: 25 (expected 24)\n  - sentinel intact in repo/pkg_gamma/mod_13.py\n  - sentinel intact in repo/pkg_beta/mod_03.py\n  - sentinel intact in repo/pkg_gamma/mod_07.py",
+  "stderr_tail": ""
+}

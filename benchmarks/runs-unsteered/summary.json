@@ -1,0 +1,135 @@
+{
+  "model": "deepseek/deepseek-flash",
+  "total_cost_usd": 0.013397,
+  "cost_guard_usd": 3.0,
+  "opencode_version": "opencode v2.3.0",
+  "timestamp": "2026-11-16T12:27:20Z",
+  "results": [
+    {
+      "task": "bulk-rename",
+      "arm": "kernel",
+      "model": "deepseek/deepseek-flash",
+      "wall_seconds": 17.4,
+      "attempts": 1,
+      "steps": 7,
+      "cost_usd": 0.003056,
+      "tokens": {
+        "input": 12904,
+        "output": 1018,
+        "reasoning": 477,
+        "cache_read": 74496,
+        "cache_write": 0
+      },
+      "run_exit": 0,
+      "verify_exit": 0,
+      "verify_pass": true,
+      "verify_output": "PASS bulk-rename\n  - no calc_total remains in repo/ (60 files scanned)\n  - compute_total occurrences: 120 (expected 120)\n  - files containing compute_total: 24 (expected 24)\n  - sentinel intact in repo/pkg_gamma/mod_14.py\n  - sentinel intact in repo/pkg_beta/mod_04.py\n  - sentinel intact in repo/pkg_gamma/mod_08.py",
+      "stderr_tail": ""
+    },
+    {
+      "task": "bulk-rename",
+      "arm": "baseline",
+      "model": "deepseek/deepseek-flash",
+      "wall_seconds": 14.9,
+      "attempts": 1,
+      "steps": 6,
+      "cost_usd": 0.001247,
+      "tokens": {
+        "input": 2911,
+        "output": 745,
+        "reasoning": 282,
+        "cache_read": 64768,
+        "cache_write": 0
+      },
+      "run_exit": 0,
+      "verify_exit": 0,
+      "verify_pass": true,
+      "verify_output": "PASS bulk-rename\n  - no calc_total remains in repo/ (60 files scanned)\n  - compute_total occurrences: 120 (expected 120)\n  - files containing compute_total: 24 (expected 24)\n  - sentinel intact in repo/pkg_gamma/mod_14.py\n  - sentinel intact in repo/pkg_beta/mod_04.py\n  - sentinel intact in repo/pkg_gamma/mod_08.py",
+      "stderr_tail": ""
+    },
+    {
+      "task": "log-analysis",
+      "arm": "kernel",
+      "model": "deepseek/deepseek-flash",
+      "wall_seconds": 15.8,
+      "attempts": 1,
+      "steps": 6,
+      "cost_usd": 0.002256,
+      "tokens": {
+        "input": 7175,
+        "output": 1352,
+        "reasoning": 332,
+        "cache_read": 56576,
+        "cache_write": 0
+      },
+      "run_exit": 0,
+      "verify_exit": 0,
+      "verify_pass": true,
+      "verify_output": "PASS log-analysis\n  - error_count: 1982 ok\n  - checkout_mean_latency_ms: 127 ok\n  - timeout_unique_users: 40 ok\n  - top_error_code: 'E408' ok\n  - first_fatal_ts: '2026-11-10T00:00:46Z' ok",
+      "stderr_tail": ""
+    },
+    {
+      "task": "log-analysis",
+      "arm": "baseline",
+      "model": "deepseek/deepseek-flash",
+      "wall_seconds": 16.6,
+      "attempts": 1,
+      "steps": 7,
+      "cost_usd": 0.002416,
+      "tokens": {
+        "input": 7692,
+        "output": 1465,
+        "reasoning": 290,
+        "cache_read": 69632,
+        "cache_write": 0
+      },
+      "run_exit": 0,
+      "verify_exit": 0,
+      "verify_pass": true,
+      "verify_output": "PASS log-analysis\n  - error_count: 1982 ok\n  - checkout_mean_latency_ms: 127 ok\n  - timeout_unique_users: 40 ok\n  - top_error_code: 'E408' ok\n  - first_fatal_ts: '2026-11-10T00:00:46Z' ok",
+      "stderr_tail": ""
+    },
+    {
+      "task": "repo-audit",
+      "arm": "kernel",
+      "model": "deepseek/deepseek-flash",
+      "wall_seconds": 15.5,
+      "attempts": 1,
+      "steps": 7,
+      "cost_usd": 0.002196,
+      "tokens": {
+        "input": 8367,
+        "output": 881,
+        "reasoning": 343,
+        "cache_read": 68736,
+        "cache_write": 0
+      },
+      "run_exit": 0,
+      "verify_exit": 0,
+      "verify_pass": true,
+      "verify_output": "PASS repo-audit\n  - audit entries: 7 reported, 7 expected",
+      "stderr_tail": ""
+    },
+    {
+      "task": "repo-audit",
+      "arm": "baseline",
+      "model": "deepseek/deepseek-flash",
+      "wall_seconds": 17.0,
+      "attempts": 1,
+      "steps": 8,
+      "cost_usd": 0.002226,
+      "tokens": {
+        "input": 8710,
+        "output": 774,
+        "reasoning": 353,
+        "cache_read": 81024,
+        "cache_write": 0
+      },
+      "run_exit": 0,
+      "verify_exit": 0,
+      "verify_pass": true,
+      "verify_output": "PASS repo-audit\n  - audit entries: 7 reported, 7 expected",
+      "stderr_tail": ""
+    }
+  ]
+}

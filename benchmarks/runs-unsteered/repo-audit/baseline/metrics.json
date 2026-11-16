@@ -1,0 +1,21 @@
+{
+  "task": "repo-audit",
+  "arm": "baseline",
+  "model": "deepseek/deepseek-flash",
+  "wall_seconds": 17.0,
+  "attempts": 1,
+  "steps": 8,
+  "cost_usd": 0.002226,
+  "tokens": {
+    "input": 8710,
+    "output": 774,
+    "reasoning": 353,
+    "cache_read": 81024,
+    "cache_write": 0
+  },
+  "run_exit": 0,
+  "verify_exit": 0,
+  "verify_pass": true,
+  "verify_output": "PASS repo-audit\n  - audit entries: 7 reported, 7 expected",
+  "stderr_tail": ""
+}

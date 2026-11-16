@@ -179,7 +179,9 @@ restarts · pre-warmed kernel pool · output spill-to-file.
 ## Benchmarks
 
 Evidence suite and protocol: [`benchmarks/PROTOCOL.md`](benchmarks/PROTOCOL.md).
-Numbers are published with full transcripts; nothing is claimed until measured.
+Measured results with full transcripts: [`benchmarks/RESULTS.md`](benchmarks/RESULTS.md) —
+n=1, cheap model, mixed outcomes reported honestly (including a disclosed
+verifier correction). Nothing is claimed beyond what was measured.
 
 ## Prior art & credits
 
