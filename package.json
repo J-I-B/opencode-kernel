@@ -1,0 +1,25 @@
+{
+  "name": "opencode-kernel",
+  "version": "0.1.0",
+  "description": "Persistent Python kernel for OpenCode — state that survives compaction",
+  "type": "module",
+  "license": "MIT",
+  "exports": {
+    ".": "./src/index.ts"
+  },
+  "files": [
+    "src",
+    "driver"
+  ],
+  "dependencies": {
+    "@opencode/plugin": "latest"
+  },
+  "devDependencies": {
+    "typescript": "^5.6.0",
+    "@types/node": "^22.0.0"
+  },
+  "scripts": {
+    "typecheck": "tsc --noEmit",
+    "test": "python3 tests/test_driver.py"
+  }
+}
