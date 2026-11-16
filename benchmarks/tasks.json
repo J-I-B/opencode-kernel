@@ -1,7 +1,7 @@
 [
   {
     "id": "bulk-rename",
-    "prompt": "In the repo/ directory, rename the function calc_total to compute_total everywhere it appears (definitions and call sites). Change nothing else. When done, reply with the number of files you changed. If a python tool backed by a persistent kernel is available, use it for this task; otherwise use the tools you have.",
+    "prompt": "In the repo/ directory, rename the function calc_total to compute_total everywhere it appears (definitions and call sites). Change nothing else. When done, reply with the number of files you changed.",
     "verifier_args": {
       "task_id": "bulk-rename",
       "workspace_dir": "."
@@ -9,7 +9,7 @@
   },
   {
     "id": "log-analysis",
-    "prompt": "The file server.log contains 20,000 log lines. Determine: (a) the number of ERROR lines, (b) the most frequent error code among ERROR lines, (c) the average latency in ms of lines with route=/api/checkout rounded to the nearest integer, (d) the number of distinct user IDs on lines whose msg contains 'timeout', (e) the timestamp of the first FATAL line. Write your answers to answers.json with keys error_count, top_error_code, checkout_mean_latency_ms, timeout_unique_users, first_fatal_ts. Then reply DONE. If a python tool backed by a persistent kernel is available, use it for this task; otherwise use the tools you have.",
+    "prompt": "The file server.log contains 20,000 log lines. Determine: (a) the number of ERROR lines, (b) the most frequent error code among ERROR lines, (c) the average latency in ms of lines with route=/api/checkout rounded to the nearest integer, (d) the number of distinct user IDs on lines whose msg contains 'timeout', (e) the timestamp of the first FATAL line. Write your answers to answers.json with keys error_count, top_error_code, checkout_mean_latency_ms, timeout_unique_users, first_fatal_ts. Then reply DONE.",
     "verifier_args": {
       "task_id": "log-analysis",
       "workspace_dir": "."
@@ -17,7 +17,7 @@
   },
   {
     "id": "repo-audit",
-    "prompt": "Find every Python function in repo/ whose source spans more than 30 lines (use ast: end_lineno - lineno + 1). Write audit.json as a list of objects {file, name, lines} where file is the path relative to the workspace root (e.g. repo/pkg/a.py). Then reply DONE. If a python tool backed by a persistent kernel is available, use it for this task; otherwise use the tools you have.",
+    "prompt": "Find every Python function in repo/ whose source spans more than 30 lines (use ast: end_lineno - lineno + 1). Write audit.json as a list of objects {file, name, lines} where file is the path relative to the workspace root (e.g. repo/pkg/a.py). Then reply DONE.",
     "verifier_args": {
       "task_id": "repo-audit",
       "workspace_dir": "."

@@ -1,0 +1,51 @@
+{
+  "model": "deepseek/deepseek-flash",
+  "total_cost_usd": 0.004762,
+  "cost_guard_usd": 3.0,
+  "opencode_version": "opencode v2.3.0",
+  "timestamp": "2026-11-16T12:34:06Z",
+  "results": [
+    {
+      "task": "bulk-rename",
+      "arm": "kernel",
+      "model": "deepseek/deepseek-flash",
+      "wall_seconds": 19.1,
+      "attempts": 1,
+      "steps": 7,
+      "cost_usd": 0.002487,
+      "tokens": {
+        "input": 7246,
+        "output": 1328,
+        "reasoning": 516,
+        "cache_read": 97792,
+        "cache_write": 0
+      },
+      "run_exit": 0,
+      "verify_exit": 0,
+      "verify_pass": true,
+      "verify_output": "PASS bulk-rename\n  - no calc_total remains in repo/ (60 files scanned)\n  - compute_total occurrences: 120 (expected 120)\n  - files containing compute_total: 24 (expected 24)\n  - sentinel intact in repo/pkg_gamma/mod_14.py\n  - sentinel intact in repo/pkg_beta/mod_04.py\n  - sentinel intact in repo/pkg_gamma/mod_08.py",
+      "stderr_tail": ""
+    },
+    {
+      "task": "bulk-rename",
+      "arm": "baseline",
+      "model": "deepseek/deepseek-flash",
+      "wall_seconds": 20.2,
+      "attempts": 1,
+      "steps": 7,
+      "cost_usd": 0.002275,
+      "tokens": {
+        "input": 4938,
+        "output": 1246,
+        "reasoning": 862,
+        "cache_read": 89984,
+        "cache_write": 0
+      },
+      "run_exit": 0,
+      "verify_exit": 0,
+      "verify_pass": true,
+      "verify_output": "PASS bulk-rename\n  - no calc_total remains in repo/ (60 files scanned)\n  - compute_total occurrences: 120 (expected 120)\n  - files containing compute_total: 24 (expected 24)\n  - sentinel intact in repo/pkg_gamma/mod_14.py\n  - sentinel intact in repo/pkg_beta/mod_04.py\n  - sentinel intact in repo/pkg_gamma/mod_08.py",
+      "stderr_tail": ""
+    }
+  ]
+}

@@ -13,6 +13,16 @@ const READY_TIMEOUT_MS = 30_000
 const STDERR_TAIL_CHARS = 4_000
 const RESTART_NOTICE = "[kernel restarted after unresponsive execution; state lost]"
 
+const GUIDANCE_TEXT =
+  "## opencode-kernel\n" +
+  "A persistent `python` kernel is available in this session. Use it for data/log " +
+  "analysis (counting, aggregation, statistics over large files): load once into a " +
+  "variable, then query across calls instead of re-reading or re-parsing. Use it for " +
+  "multi-step or stateful work; state survives context compaction. Write reusable " +
+  "helper functions in the kernel and call them again in later calls. Keep bulk data " +
+  "in variables; print only slices/summaries. For quick one-off lookups or single " +
+  "mechanical transforms (e.g. a rename sed can do), shell one-liners remain appropriate."
+
 interface DriverResponse {
   id: string
   ok: boolean
@@ -271,6 +281,7 @@ export default Plugin.define({
     const maxKernels = positiveNumber(options.maxKernels, 8)
     const maxOutputChars = positiveNumber(options.maxOutputChars, 20000)
     const permissionMode = options.permission === "allow" ? "allow" : "ask"
+    const guidance = options.guidance !== false
     const cwd = ctx.location.directory
 
     const kernels = new Map<string, Kernel>()
@@ -376,6 +387,15 @@ export default Plugin.define({
         },
       })
     })
+
+    // Adoption guidance: without it, models default to shell one-liners and
+    // never reach for the kernel (measured in benchmarks/RESULTS.md, round 1).
+    // Injected into every agent-loop request; disable with guidance: false.
+    if (guidance) {
+      await ctx.session.hook("context", (event) => {
+        event.system.push({ type: "text", text: GUIDANCE_TEXT })
+      })
+    }
 
     // Custom actions fall through to the base "*:* allow" policy, which would
     // execute Python with no prompt. Default to ask unless the user explicitly

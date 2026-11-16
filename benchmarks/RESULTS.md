@@ -9,7 +9,7 @@
 - **Metrics source:** per-step `cost`/`tokens` events from `--format json`
   (OpenCode's models.dev-based estimate; DeepSeek peak/off-peak billing may differ).
   `input (miss)` = uncached input tokens; `cache read` billed separately at the hit rate.
-- **Total live spend (all rounds + calibration probes): < $0.04 (≈ €0.04).**
+- **Total live spend (all rounds + calibration probes): < $0.07 (≈ €0.065).**
   Cost guard: $3 cumulative, never approached. Failed boot attempts cost $0.
 
 ## Round 1 — unsteered (adoption probe)
@@ -72,7 +72,41 @@ for this task; otherwise use the tools you have."* The kernel arm then used
 | bulk-rename (rerun) | baseline | 7 | 20.2 | 0.0023 | 4,938 | 89,984 | 1,246 | PASS |
 
 Near-parity: for a mechanical rename, `sed`-class shell work is hard to beat;
-the kernel adds no advantage here. Evidence: `runs/`, logs in `logs/`.
+the kernel adds no advantage here. Evidence: `runs-steered/`, logs in `logs/`.
+
+## Round 3 — plugin guidance v1 (unsteered tasks)
+
+The plugin now injects a compact guidance block into model context via the
+`context` hook (ships enabled; `guidance: false` opt-out). Task prompts restored
+to the original unsteered versions; the guidance is the only treatment.
+
+Adoption: **1/3 tasks** — bulk-rename used the kernel (4 python calls), while
+log-analysis and repo-audit stayed on shell one-liners. All 6 PASS. But the
+adopted task was the wrong one: the kernel rename cost ~3× the baseline's sed
+($0.0034 vs $0.0011). Guidance v1 said "prefer for multi-step/bulk work" —
+too broad; it pulled in sed-optimal work and missed the data task.
+Evidence: `runs-guidance-v1/`.
+
+## Round 4 — plugin guidance v2, final (unsteered tasks)
+
+Guidance sharpened: data/log analysis named explicitly as kernel territory
+("load once into a variable, then query across calls"); single mechanical
+transforms ("a rename sed can do") explicitly left to shell.
+
+Adoption: **selective, as designed** —
+- log-analysis → **kernel** (2 python calls via Code Mode) ✓
+- bulk-rename → **shell/sed** ✓ (cheaper than round 3's kernel rename)
+- repo-audit → shell (defensible at this repo size)
+
+All 6 PASS. Costs: bulk-rename $0.0019 vs $0.0014; log-analysis $0.0030 vs
+$0.0017; repo-audit $0.0032 vs $0.0009 (kernel vs baseline).
+
+**Variance disclosure:** log-analysis was 39% *cheaper* with the kernel in
+round 2 (71% fewer uncached input tokens) but ~79% *pricier* in round 4. At
+n=1, small fixtures, and a cheap cached model, run-to-run model behavior
+dominates; no stable cost claim is possible at this scale. The structural
+mechanism (data lives in the kernel, only slices enter context) is unchanged —
+whether a given run exploits it well varies. Evidence: `runs/`.
 
 ## Conclusions (what we claim, and what we don't)
 
@@ -86,11 +120,15 @@ the kernel adds no advantage here. Evidence: `runs/`, logs in `logs/`.
    one-liners. The kernel's structural advantages (state across calls and
    compaction, multi-stage stateful analysis, large data) are **not exercised**
    by this suite — the compaction-survival task remains deferred.
-4. **Adoption is the bottleneck:** unsteered, the model ignored the kernel
-   entirely. Guidance (tool description / prompt rules / task steering) is
-   required for the mechanism to engage.
+4. **Adoption is steerable, and now ships in the plugin:** unsteered with no
+   guidance, the model ignored the kernel entirely (round 1). Broad guidance
+   pulled in sed-optimal work at 3× cost (round 3). Targeted guidance (v2,
+   shipped default) achieves selective adoption: kernel for data analysis,
+   shell for mechanical transforms (round 4).
 5. **No statistical or leaderboard claims:** n=1, one cheap model, small
-   fixtures. Everything above is directional, with full transcripts published.
+   fixtures, and disclosed run-to-run variance (log-analysis cost flipped
+   between rounds). Everything above is directional, with full transcripts
+   published.
 
 ## Infrastructure note (OpenCode quirk found while building the runner)
 
@@ -109,7 +147,9 @@ python3 run_bench.py --max-cost 3.0        # requires DEEPSEEK_API_KEY; ~$0.02
 
 ## Evidence map
 
-- `runs-unsteered/` — round 1 transcripts + metrics + summary
+- `runs-unsteered/` — round 1 transcripts + metrics + summary (no guidance)
 - `runs-round2-bulk-rename/` — original round-2 bulk-rename pair (FAIL evidence)
-- `runs/` — final steered results (bulk-rename pair re-run, amended verifier)
+- `runs-steered/` — round 2 steered results (bulk-rename pair re-run, amended verifier)
+- `runs-guidance-v1/` — round 3 (plugin guidance v1, unsteered tasks)
+- `runs/` — round 4 final (plugin guidance v2, unsteered tasks)
 - `logs/` — full runner stdout per round (incl. complete summaries)

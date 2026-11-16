@@ -130,6 +130,9 @@ kernel-side writes bypass.
 - **Output truncation** with guidance to keep data in variables and print slices.
 - **Empty namespace** — no prelude. The model writes and reuses its own helper
   functions, like any other variable.
+- **Adoption guidance built in** — a compact instruction block is injected into
+  the model context (`guidance: false` to disable): measured benchmarks showed
+  models otherwise default to shell one-liners and never reach for the kernel.
 - **Language-agnostic JSON-lines protocol** — alternative backends (IPython with
   rich output, others) can be added without redesign.
 
@@ -147,7 +150,8 @@ kernel-side writes bypass.
         "idleTTLSeconds": 1800,   // idle kernel eviction
         "maxKernels": 8,          // LRU cap across sessions
         "maxOutputChars": 20000,  // per-stream output cap
-        "permission": "ask"       // "ask" (default, plugin-enforced) or "allow" (no prompts)
+        "permission": "ask",      // "ask" (default, plugin-enforced) or "allow" (no prompts)
+        "guidance": true          // inject kernel-usage guidance into model context
       }
     }
   ]

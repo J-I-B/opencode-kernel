@@ -1,0 +1,21 @@
+{
+  "task": "log-analysis",
+  "arm": "baseline",
+  "model": "deepseek/deepseek-flash",
+  "wall_seconds": 19.1,
+  "attempts": 1,
+  "steps": 6,
+  "cost_usd": 0.001815,
+  "tokens": {
+    "input": 1856,
+    "output": 1783,
+    "reasoning": 461,
+    "cache_read": 63488,
+    "cache_write": 0
+  },
+  "run_exit": 0,
+  "verify_exit": 0,
+  "verify_pass": true,
+  "verify_output": "PASS log-analysis\n  - error_count: 1982 ok\n  - checkout_mean_latency_ms: 127 ok\n  - timeout_unique_users: 40 ok\n  - top_error_code: 'E408' ok\n  - first_fatal_ts: '2026-11-10T00:00:46Z' ok",
+  "stderr_tail": ""
+}
